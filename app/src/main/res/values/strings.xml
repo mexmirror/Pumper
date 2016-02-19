@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Pumper</string>
+    <string name="calendar">Calendar</string>
+    <string name="drawer_edit">Edit training</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="firstStart">Seems like the first start. Add some trainings first</string>
+    <string name="main_ioexception">An error occured while reading data. New storage will be created</string>
+    <string name="main_classexception">A fatal error occurred. Please inform the developers and exit the application now</string>
+    <string name="quit_now">Quit now</string>
+    <string name="iterations">Iterations</string>
+    <string name="weight">Weight</string>
+    <string name="repetitions">Repetitions</string>
+    <string name="save">Save</string>
+    <string name="device">Device</string>
+    <string name="id_too_long_error">Device ID should not be longer than 2 characters</string>
+</resources>
