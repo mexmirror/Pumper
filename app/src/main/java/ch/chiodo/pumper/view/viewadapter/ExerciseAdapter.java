@@ -11,7 +11,7 @@ import java.util.List;
 
 import ch.chiodo.pumper.R;
 import ch.chiodo.pumper.controller.TrainingController;
-import ch.chiodo.pumper.data.Exercise;
+import ch.chiodo.pumper.model.Exercise;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHolder>{
     private List<Exercise> exerciseList;
@@ -33,7 +33,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Exercise exercise = exerciseList.get(position);
-        holder.device.setText(exercise.getDevice().getId());
+        holder.device.setText(exercise.getDevice().getDeviceName());
         holder.weight.setText(Double.toString(exercise.getWeight()));
         holder.repetition.setText(Integer.toString(exercise.getRepetition()));
     }
