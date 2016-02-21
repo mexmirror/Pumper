@@ -21,11 +21,13 @@
             android:text="ID"
             android:background="@drawable/redcircle"
             android:layout_margin="6dp"/>
-        <TextView
-            android:text="@string/weight"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/ic_line_weight_black_24dp"
             android:id="@+id/row_edit_weight"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:layout_alignTop="@+id/row_edit_device"
             android:layout_toRightOf="@+id/row_edit_device"
             android:layout_toEndOf="@+id/row_edit_device" />
@@ -33,24 +35,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/row_edit_weight_value"
-            android:text="00"
+            android:text="0000"
+            android:layout_marginLeft="5dp"
+            android:textSize="20sp"
             android:layout_alignTop="@+id/row_edit_weight"
-            android:layout_toRightOf="@+id/row_edit_repetition"
-            android:layout_toEndOf="@+id/row_edit_repetition" />
-        <TextView
+            android:layout_toRightOf="@+id/row_edit_weight"
+            android:layout_toEndOf="@+id/row_edit_weight" />
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/repetitions"
+            android:src="@drawable/ic_cached_black_24dp"
             android:id="@+id/row_edit_repetition"
-            android:layout_below="@+id/row_edit_weight"
+            android:layout_alignBottom="@+id/row_edit_device"
             android:layout_alignLeft="@+id/row_edit_weight"
             android:layout_alignStart="@+id/row_edit_weight" />
         <TextView
             android:id="@+id/row_edit_repetition_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00"
-            android:layout_alignTop="@+id/row_edit_repetition"
+            android:text="0000"
+            android:textSize="20sp"
+            android:layout_marginLeft="5dp"
+            android:layout_alignBottom="@+id/row_edit_repetition"
             android:layout_toRightOf="@+id/row_edit_repetition"
             android:layout_toEndOf="@+id/row_edit_repetition" />
     </RelativeLayout>

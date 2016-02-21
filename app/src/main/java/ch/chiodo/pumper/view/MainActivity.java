@@ -12,12 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.util.List;
-
 import ch.chiodo.pumper.R;
 import ch.chiodo.pumper.controller.ExerciseController;
-import ch.chiodo.pumper.controller.TrainingController;
-import ch.chiodo.pumper.data.Exercise;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private final FragmentManager fragmentManager = getFragmentManager();
