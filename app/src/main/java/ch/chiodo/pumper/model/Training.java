@@ -4,32 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Training {
-    private List<Exercise> exercises;
-    public Training(){
-        this(new ArrayList<Exercise>());
+    private long id;
+
+    public Training(){};
+
+    public long getId() {
+        return id;
     }
 
-    public Training (List<Exercise> list){
-        exercises = list;
+    public void setId(long id) {
+        this.id = id;
     }
+    public void update(long id){
 
-    public boolean addExercise(Exercise exercise){
-        exercises.add(exercise);
-
-        return false;
-    }
-
-    public Exercise getExerciseAtPosition(int position){
-        return exercises.get(position);
-    }
-
-    public Exercise removeExercise(Exercise exercise){
-        if(exercises.remove(exercise)){
-            return exercise;
-        }
-        return null;
-    }
-    public List<Exercise> getExercises() {
-        return new ArrayList<>(exercises);
     }
 }

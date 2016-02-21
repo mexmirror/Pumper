@@ -1,17 +1,22 @@
 package ch.chiodo.pumper.model;
 
 public class Exercise {
+    private int id;
+    private Training training;
     private Device device;
     private double weight;
     private int repetition;
-    public Exercise(Device device, double weight, int repetition){
+
+    public Exercise(Training training, Device device, double weight, int repetition){
         this.weight = weight;
         this.repetition = repetition;
         this.device = device;
+        this.training = training;
     }
     public Device getDevice() {
         return device;
     }
+
     public void setDevice(Device device) {
         this.device = device;
     }
@@ -31,33 +36,27 @@ public class Exercise {
     public void setRepetition(int repetition) {
         this.repetition = repetition;
     }
-    public void update(Device device, double weight, int repetition){
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Training getTraining() {
+        return training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
+    }
+
+    public void update(Training training, Device device, double weight, int repetition){
         this.device = device;
         this.weight = weight;
         this.repetition = repetition;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Exercise exercise = (Exercise) o;
-
-        if (Double.compare(exercise.weight, weight) != 0) return false;
-        if (repetition != exercise.repetition) return false;
-        return device.equals(exercise.device);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = device.hashCode();
-        temp = Double.doubleToLongBits(weight);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + repetition;
-        return result;
+        this.training = training;
     }
 }

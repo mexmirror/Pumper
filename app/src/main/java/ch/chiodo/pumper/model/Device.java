@@ -1,33 +1,30 @@
 package ch.chiodo.pumper.model;
 
 public class Device {
-    private String id;
+    private int id;
+    private String deviceName;
 
-    public Device(String id) {
-        this.id = id;
+    public Device(String deviceName) {
+        this.deviceName = deviceName;
     }
 
-    public String getId() {
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String id) {
+        this.deviceName = id;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public void update(String deviceName, int id){
 
-        Device device = (Device) o;
-
-        return id.equals(device.id);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
     }
 }
