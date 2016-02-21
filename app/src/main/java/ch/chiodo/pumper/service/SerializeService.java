@@ -10,20 +10,17 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class SerializeService {
-    public static <T extends Serializable> void saveObject(T object, String filename, Context context) throws IOException {
-        FileOutputStream fileOutputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
+    public static <T extends Serializable> void saveObject(T object,FileOutputStream fileOutputStream) throws IOException {
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(object);
         objectOutputStream.flush();
         objectOutputStream.close();
         fileOutputStream.close();
     }
-    public static <T extends Serializable> T loadObject(String filename, Context context) throws IOException, ClassNotFoundException {
-        FileInputStream fileInputStream = context.openFileInput(filename);
+    public static <T extends Serializable> void loadObject(T object, FileInputStream fileInputStream) throws IOException, ClassNotFoundException {
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        T object = (T)objectInputStream.readObject();
+        object = (T)objectInputStream.readObject();
         objectInputStream.close();
         fileInputStream.close();
-        return object;
     }
 }
