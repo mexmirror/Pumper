@@ -1,7 +1,15 @@
 package ch.chiodo.pumper.persistence;
 
-/**
- * Created by co on 19.02.16.
- */
-public class TrainingContract {
+
+import android.provider.BaseColumns;
+
+public final class TrainingContract {
+    /**
+     * To prevent someone from accidentally instantiating the contract class,
+     * provide an empty constructor
+     */
+    public TrainingContract(){}
+    public static abstract class Training implements BaseColumns {
+        public static final String TABLE_NAME = "training";
+    }
 }
