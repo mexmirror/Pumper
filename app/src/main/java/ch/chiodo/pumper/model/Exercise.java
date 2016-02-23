@@ -1,7 +1,7 @@
 package ch.chiodo.pumper.model;
 
 public class Exercise {
-    private int id;
+    private long id;
     private Training training;
     private Device device;
     private double weight;
@@ -37,11 +37,11 @@ public class Exercise {
         this.repetition = repetition;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -53,7 +53,7 @@ public class Exercise {
         this.training = training;
     }
 
-    public void update(Training training, Device device, double weight, int repetition){
+    public void update(long id, Training training, Device device, double weight, int repetition){
         this.device = device;
         this.weight = weight;
         this.repetition = repetition;

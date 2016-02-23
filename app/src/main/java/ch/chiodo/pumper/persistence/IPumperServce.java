@@ -1,5 +1,6 @@
 package ch.chiodo.pumper.persistence;
 
+import java.text.ParseException;
 import java.util.List;
 
 import ch.chiodo.pumper.model.Device;
@@ -27,14 +28,14 @@ public interface IPumperServce {
     Exercise modifyExercise(Exercise modified, Exercise original);
     Exercise deleteExercise(Exercise exercise);
 
-    List<Execution> getExecutions();
-    Execution getExecution(int id);
+    List<Execution> getExecutions() throws ParseException;
+    Execution getExecution(int id) throws ParseException;
     Execution insertExecution(Execution execution);
     Execution modifyExecution(Execution modified, Execution original);
     Execution deleteExecution(Execution execution);
 
-    List<Iteration> getIterations();
-    Iteration getIteration(int id);
+    List<Iteration> getIterations() throws ParseException;
+    Iteration getIteration(int id) throws ParseException;
     Iteration insertIteration(Iteration iteration);
     Iteration modifyIteration(Iteration modified, Iteration original);
     Iteration deleteIteration(Iteration iteration);

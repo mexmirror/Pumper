@@ -1,6 +1,7 @@
 package ch.chiodo.pumper.model;
 
 public class Iteration {
+    private long id;
     private double actualWeight;
     private int repetition;
     private Execution execution;
@@ -43,5 +44,22 @@ public class Iteration {
 
     public void setExercise(Exercise exercise) {
         this.exercise = exercise;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void update(long id, double actualWeight, int repetition, Exercise exercise, Execution execution) {
+        this.id = id;
+        this.actualWeight = actualWeight;
+        this.repetition = repetition;
+        this.execution = execution;
+        this.exercise = exercise;
+
     }
 }

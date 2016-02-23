@@ -1,7 +1,7 @@
 package ch.chiodo.pumper.model;
 
 public class Device {
-    private int id;
+    private long id;
     private String deviceName;
 
     public Device(String deviceName) {
@@ -16,15 +16,16 @@ public class Device {
         this.deviceName = id;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public void update(String deviceName, int id){
-
+    public void update(String deviceName, long id){
+        this.deviceName = deviceName;
+        this.id = id;
     }
 }

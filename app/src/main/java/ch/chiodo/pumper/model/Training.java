@@ -16,6 +16,6 @@ public class Training {
         this.id = id;
     }
     public void update(long id){
-
+        this.id = id;
     }
 }
