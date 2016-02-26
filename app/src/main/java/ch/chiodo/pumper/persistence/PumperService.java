@@ -31,15 +31,15 @@ public class PumperService implements IPumperServce{
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String query = "SELECT * FROM " + TrainingContract.Training.TABLE_NAME;
         Cursor c = db.rawQuery(query, null);
-        if(c.moveToFirst()){
+        if(c != null && c.moveToFirst()){
             do{
                 String name = c.getString(c.getColumnIndex(TrainingContract.Training.COLUMN_NAME_NAME));
                 Training t = new Training(name);
                 t.setId(c.getLong(c.getColumnIndex(TrainingContract.Training._ID)));
                 trainingList.add(t);
             }while(c.moveToNext());
+            c.close();
         }
-        c.close();
         return trainingList;
     }
 
@@ -58,8 +58,7 @@ public class PumperService implements IPumperServce{
                 null,
                 null
                 );
-        if(c != null){
-            c.moveToFirst();
+        if(c != null && c.moveToFirst()){
             String name = c.getString(c.getColumnIndex(TrainingContract.Training.COLUMN_NAME_NAME));
             Training t = new Training(name);
             long foundId = c.getLong(c.getColumnIndex(TrainingContract.Training._ID));
@@ -117,7 +116,7 @@ public class PumperService implements IPumperServce{
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String query = "SELECT * FROM " + DeviceContract.Device.TABLE_NAME;
         Cursor c = db.rawQuery(query, null);
-        if(c.moveToFirst()){
+        if(c != null && c.moveToFirst()){
             do{
                 String deviceName = c.getString(c.getColumnIndex(DeviceContract.Device.COLUMN_NAME_DEVICE_ID));
                 int id = c.getInt(c.getColumnIndex(DeviceContract.Device._ID));
@@ -125,8 +124,8 @@ public class PumperService implements IPumperServce{
                 d.setId(id);
                 list.add(d);
             }while(c.moveToNext());
+            c.close();
         }
-        c.close();
         return list;
     }
 
@@ -144,8 +143,7 @@ public class PumperService implements IPumperServce{
                 null,
                 null,
                 null);
-        if(c!=null){
-            c.moveToFirst();
+        if(c!=null && c.moveToFirst()){
             Device d = new Device(c.getString(c.getColumnIndex(DeviceContract.Device.COLUMN_NAME_DEVICE_ID)));
             d.setId(c.getInt(c.getColumnIndex(DeviceContract.Device._ID)));
             c.close();
@@ -200,7 +198,7 @@ public class PumperService implements IPumperServce{
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String query = "SELECT * FROM " + ExerciseContract.Exercise.TABLE_NAME;
         Cursor c = db.rawQuery(query, null);
-        if(c.moveToFirst()){
+        if(c != null && c.moveToFirst()){
             do{
                 int id = c.getInt(c.getColumnIndex(ExerciseContract.Exercise._ID));
                 double weight = c.getDouble(c.getColumnIndex(ExerciseContract.Exercise.COLUMN_NAME_WEIGHT));
@@ -211,8 +209,8 @@ public class PumperService implements IPumperServce{
                 e.setId(id);
                 list.add(e);
             }while(c.moveToNext());
+            c.close();
         }
-        c.close();
         return list;
     }
 
@@ -238,8 +236,7 @@ public class PumperService implements IPumperServce{
                 null,
                 null
         );
-        if(c!=null){
-            c.moveToFirst();
+        if(c!=null && c.moveToFirst()){
             int foundId = c.getInt(c.getColumnIndex(ExerciseContract.Exercise._ID));
             double weight = c.getDouble(c.getColumnIndex(ExerciseContract.Exercise.COLUMN_NAME_WEIGHT));
             int repetition = c.getInt(c.getColumnIndex(ExerciseContract.Exercise.COLUMN_NAME_REPETITION));
@@ -309,7 +306,7 @@ public class PumperService implements IPumperServce{
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String query = "SELECT * FROM " + ExecutionContract.Execution.TABLE_NAME;
         Cursor c = db.rawQuery(query, null);
-        if(c.moveToFirst()){
+        if(c != null && c.moveToFirst()){
             do{
                 int id = c.getInt(c.getColumnIndex(ExecutionContract.Execution._ID));
                 Training t = getTraining(c.getInt(c.getColumnIndex(ExecutionContract.Execution.COLUMN_NAME_TRAINING)));
@@ -319,8 +316,8 @@ public class PumperService implements IPumperServce{
                 e.setId(id);
                 list.add(e);
             } while(c.moveToNext());
+            c.close();
         }
-        c.close();
         return list;
     }
 
@@ -344,17 +341,18 @@ public class PumperService implements IPumperServce{
                 null,
                 null
         );
-        if(c.moveToFirst()){
+        if(c != null && c.moveToFirst()){
             c.moveToFirst();
+            int foundId = c.getInt(c.getColumnIndex(ExecutionContract.Execution._ID));
+            Training t = getTraining(c.getInt(c.getColumnIndex(ExecutionContract.Execution._ID)));
+            String dateString = c.getString(c.getColumnIndex(ExecutionContract.Execution.COLUMN_NAME_DATE));
+            Calendar d = DateParseService.toCalendar(dateString);
+            Execution e = new Execution(t, d);
+            e.setId(foundId);
+            c.close();
+            return e;
         }
-        int foundId = c.getInt(c.getColumnIndex(ExecutionContract.Execution._ID));
-        Training t = getTraining(c.getInt(c.getColumnIndex(ExecutionContract.Execution._ID)));
-        String dateString = c.getString(c.getColumnIndex(ExecutionContract.Execution.COLUMN_NAME_DATE));
-        Calendar d = DateParseService.toCalendar(dateString);
-        Execution e = new Execution(t, d);
-        e.setId(foundId);
-        c.close();
-        return e;
+        return null;
     }
 
     @Override
@@ -408,7 +406,7 @@ public class PumperService implements IPumperServce{
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String query = "SELECT * FROM " + IterationContract.Iteration.TABLE_NAME;
         Cursor c = db.rawQuery(query, null);
-        if(c.moveToFirst()){
+        if(c != null && c.moveToFirst()){
             do{
                 int id = c.getInt(c.getColumnIndex(IterationContract.Iteration._ID));
                 double weight = c.getDouble(c.getColumnIndex(IterationContract.Iteration.COLUMN_NAME_WEIGHT));
@@ -419,8 +417,8 @@ public class PumperService implements IPumperServce{
                 i.setId(id);
                 list.add(i);
             } while(c.moveToNext());
+            c.close();
         }
-        c.close();
         return list;
     }
 
@@ -446,8 +444,7 @@ public class PumperService implements IPumperServce{
                 null,
                 null
         );
-        if(c != null){
-            c.moveToFirst();
+        if(c != null && c.moveToFirst()){
             int foundId = c.getInt(c.getColumnIndex(IterationContract.Iteration._ID));
             double weight = c.getDouble(c.getColumnIndex(IterationContract.Iteration.COLUMN_NAME_WEIGHT));
             int repetition = c.getInt(c.getColumnIndex(IterationContract.Iteration.COLUMN_NAME_REPETITION));
