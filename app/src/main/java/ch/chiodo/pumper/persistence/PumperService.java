@@ -88,6 +88,7 @@ public class PumperService implements IPumperServce{
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put(TrainingContract.Training._ID, modified.getId());
+        values.put(TrainingContract.Training.COLUMN_NAME_NAME, modified.getName());
         String where = TrainingContract.Training._ID + "=?";
         String[] whereArgs = {String.valueOf(original.getId())};
         int affectedRows = db.update(TrainingContract.Training.TABLE_NAME, values, where, whereArgs);
