@@ -1,21 +1,24 @@
 package ch.chiodo.pumper.model;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Execution {
     private long id;
-    private Date date;
+    private Calendar date;
     private Training training;
 
-    public Execution(Training training, Date date){
+    public Execution(Training training, Calendar date){
         this.date = date;
+        this.training = training;
     }
 
     public Execution(Training training){
-        this(training, new Date());
+        this(training, GregorianCalendar.getInstance());
     }
 
-    public Date getDate() {
+    public Calendar getDate() {
         return date;
     }
 
@@ -31,7 +34,7 @@ public class Execution {
         this.id = id;
     }
 
-    public void update(long id, Training training, Date date) {
+    public void update(long id, Training training, Calendar date) {
         this.id = id;
         this.training = training;
         this.date = date;
