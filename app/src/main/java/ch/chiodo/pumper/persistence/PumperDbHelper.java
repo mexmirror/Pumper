@@ -46,7 +46,8 @@ public class PumperDbHelper extends SQLiteOpenHelper {
                     +")";
     public static final String SQL_CREATE_TRAINING_ENTRIES =
             "CREATE TABLE " + TrainingContract.Training.TABLE_NAME + "("
-                    + TrainingContract.Training._ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+                    + TrainingContract.Training._ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + COMMA_SEP
+                    + TrainingContract.Training.COLUMN_NAME_NAME + TEXT_TYPE
                     + ")";
     private static final String SQL_DELETE_EXECUTION_ENTRIES =
             "DROP TABLE IF EXISTS " + ExecutionContract.Execution.TABLE_NAME;

@@ -11,5 +11,6 @@ public final class TrainingContract {
     public TrainingContract(){}
     public static abstract class Training implements BaseColumns {
         public static final String TABLE_NAME = "training";
+        public static final String COLUMN_NAME_NAME = "name";
     }
 }
