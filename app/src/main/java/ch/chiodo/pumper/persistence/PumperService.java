@@ -5,11 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import ch.chiodo.pumper.model.Device;
@@ -17,11 +15,11 @@ import ch.chiodo.pumper.model.Execution;
 import ch.chiodo.pumper.model.Exercise;
 import ch.chiodo.pumper.model.Iteration;
 import ch.chiodo.pumper.model.Training;
+import ch.chiodo.pumper.service.DateParseService;
 
 public class PumperService implements IPumperServce{
     public static final int sqlInsertError = -1;
     private SQLiteOpenHelper dbHelper;
-    private final static String iso8601DateFormat = "YYYY-MM-DD HH:MM:SS.SSS";
 
     public PumperService(SQLiteOpenHelper dbHelper){
         this.dbHelper = dbHelper;
@@ -35,18 +33,20 @@ public class PumperService implements IPumperServce{
         Cursor c = db.rawQuery(query, null);
         if(c.moveToFirst()){
             do{
-                Training t = new Training();
+                String name = c.getString(c.getColumnIndex(TrainingContract.Training.COLUMN_NAME_NAME));
+                Training t = new Training(name);
                 t.setId(c.getLong(c.getColumnIndex(TrainingContract.Training._ID)));
                 trainingList.add(t);
             }while(c.moveToNext());
         }
+        c.close();
         return trainingList;
     }
 
     @Override
-    public Training getTraining(int id) {
+    public Training getTraining(long id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] projection = {TrainingContract.Training._ID};
+        String[] projection = { TrainingContract.Training._ID, TrainingContract.Training.COLUMN_NAME_NAME };
         String selection = TrainingContract.Training._ID + "=?";
         String[] selectionArgs = {String.valueOf(id)};
         Cursor c = db.query(TrainingContract.Training.TABLE_NAME,
@@ -60,18 +60,22 @@ public class PumperService implements IPumperServce{
                 );
         if(c != null){
             c.moveToFirst();
+            String name = c.getString(c.getColumnIndex(TrainingContract.Training.COLUMN_NAME_NAME));
+            Training t = new Training(name);
+            long foundId = c.getLong(c.getColumnIndex(TrainingContract.Training._ID));
+            t.setId(foundId);
+            c.close();
+            return t;
         }
-        Training t = new Training();
-        t.setId(c.getLong(c.getColumnIndex(TrainingContract.Training._ID)));
-        return t;
+        return null;
     }
 
     @Override
     public Training insertTraining(Training training) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(TrainingContract.Training.COLUMN_NAME_NAME, training.getName());
         long rowId = db.insert(TrainingContract.Training.TABLE_NAME, null, values);
-        training.setId(rowId);
         if(rowId != sqlInsertError){
             training.setId(rowId);
             return training;
@@ -88,7 +92,7 @@ public class PumperService implements IPumperServce{
         String[] whereArgs = {String.valueOf(original.getId())};
         int affectedRows = db.update(TrainingContract.Training.TABLE_NAME, values, where, whereArgs);
         if(affectedRows == 1){
-            original.update(modified.getId());
+            original.update(modified.getId(), modified.getName());
             return original;
         }
         return null;
@@ -121,11 +125,12 @@ public class PumperService implements IPumperServce{
                 list.add(d);
             }while(c.moveToNext());
         }
+        c.close();
         return list;
     }
 
     @Override
-    public Device getDevice(int id) {
+    public Device getDevice(long id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] projection = {DeviceContract.Device.COLUMN_NAME_DEVICE_ID};
         String selection = DeviceContract.Device._ID + "=?";
@@ -140,10 +145,12 @@ public class PumperService implements IPumperServce{
                 null);
         if(c!=null){
             c.moveToFirst();
+            Device d = new Device(c.getString(c.getColumnIndex(DeviceContract.Device.COLUMN_NAME_DEVICE_ID)));
+            d.setId(c.getInt(c.getColumnIndex(DeviceContract.Device._ID)));
+            c.close();
+            return d;
         }
-        Device d = new Device(c.getString(c.getColumnIndex(DeviceContract.Device.COLUMN_NAME_DEVICE_ID)));
-        d.setId(c.getInt(c.getColumnIndex(DeviceContract.Device._ID)));
-        return d;
+        return null;
     }
 
     @Override
@@ -204,11 +211,12 @@ public class PumperService implements IPumperServce{
                 list.add(e);
             }while(c.moveToNext());
         }
+        c.close();
         return list;
     }
 
     @Override
-    public Exercise getExercise(int id) {
+    public Exercise getExercise(long id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] projection = {
                 ExerciseContract.Exercise._ID,
@@ -231,15 +239,17 @@ public class PumperService implements IPumperServce{
         );
         if(c!=null){
             c.moveToFirst();
+            int foundId = c.getInt(c.getColumnIndex(ExerciseContract.Exercise._ID));
+            double weight = c.getDouble(c.getColumnIndex(ExerciseContract.Exercise.COLUMN_NAME_WEIGHT));
+            int repetition = c.getInt(c.getColumnIndex(ExerciseContract.Exercise.COLUMN_NAME_REPETITION));
+            Training t = getTraining(c.getInt(c.getColumnIndex(ExerciseContract.Exercise.COLUMN_NAME_TRAINING)));
+            Device d = getDevice(c.getInt(c.getColumnIndex(ExerciseContract.Exercise.COLUMN_NAME_DEVICE)));
+            Exercise e = new Exercise(t, d, weight, repetition);
+            e.setId(foundId);
+            c.close();
+            return e;
         }
-        int foundId = c.getInt(c.getColumnIndex(ExerciseContract.Exercise._ID));
-        double weight = c.getDouble(c.getColumnIndex(ExerciseContract.Exercise.COLUMN_NAME_WEIGHT));
-        int repetition = c.getInt(c.getColumnIndex(ExerciseContract.Exercise.COLUMN_NAME_REPETITION));
-        Training t = getTraining(c.getInt(c.getColumnIndex(ExerciseContract.Exercise.COLUMN_NAME_TRAINING)));
-        Device d = getDevice(c.getInt(c.getColumnIndex(ExerciseContract.Exercise.COLUMN_NAME_DEVICE)));
-        Exercise e = new Exercise(t, d, weight, repetition);
-        e.setId(foundId);
-        return e;
+        return null;
     }
 
     @Override
@@ -303,18 +313,18 @@ public class PumperService implements IPumperServce{
                 int id = c.getInt(c.getColumnIndex(ExecutionContract.Execution._ID));
                 Training t = getTraining(c.getInt(c.getColumnIndex(ExecutionContract.Execution.COLUMN_NAME_TRAINING)));
                 String dateString = c.getString(c.getColumnIndex(ExecutionContract.Execution.COLUMN_NAME_DATE));
-                DateFormat format = new SimpleDateFormat(iso8601DateFormat);
-                Date d = format.parse(dateString);
+                Calendar d = DateParseService.toCalendar(dateString);
                 Execution e = new Execution(t, d);
                 e.setId(id);
                 list.add(e);
             } while(c.moveToNext());
         }
+        c.close();
         return list;
     }
 
     @Override
-    public Execution getExecution(int id) throws ParseException {
+    public Execution getExecution(long id) throws ParseException {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] projection = {
                 ExecutionContract.Execution._ID,
@@ -339,10 +349,10 @@ public class PumperService implements IPumperServce{
         int foundId = c.getInt(c.getColumnIndex(ExecutionContract.Execution._ID));
         Training t = getTraining(c.getInt(c.getColumnIndex(ExecutionContract.Execution._ID)));
         String dateString = c.getString(c.getColumnIndex(ExecutionContract.Execution.COLUMN_NAME_DATE));
-        DateFormat format = new SimpleDateFormat(iso8601DateFormat);
-        Date d = format.parse(iso8601DateFormat);
+        Calendar d = DateParseService.toCalendar(dateString);
         Execution e = new Execution(t, d);
         e.setId(foundId);
+        c.close();
         return e;
     }
 
@@ -350,8 +360,8 @@ public class PumperService implements IPumperServce{
     public Execution insertExecution(Execution execution) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        DateFormat format = new SimpleDateFormat(iso8601DateFormat);
-        values.put(ExecutionContract.Execution.COLUMN_NAME_DATE, format.format(execution.getDate()));
+        String date = DateParseService.fromCalendar(execution.getDate());
+        values.put(ExecutionContract.Execution.COLUMN_NAME_DATE, date);
         values.put(ExecutionContract.Execution.COLUMN_NAME_TRAINING, execution.getTraining().getId());
         long rowId = db.insert(ExecutionContract.Execution.TABLE_NAME, null, values);
         if(rowId != sqlInsertError){
@@ -365,8 +375,8 @@ public class PumperService implements IPumperServce{
     public Execution modifyExecution(Execution modified, Execution original) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        DateFormat format = new SimpleDateFormat(iso8601DateFormat);
-        values.put(ExecutionContract.Execution.COLUMN_NAME_DATE, format.format(modified.getDate()));
+        String iso8601date = DateParseService.fromCalendar(modified.getDate());
+        values.put(ExecutionContract.Execution.COLUMN_NAME_DATE, iso8601date);
         values.put(ExecutionContract.Execution.COLUMN_NAME_TRAINING, modified.getTraining().getId());
         values.put(ExecutionContract.Execution._ID, modified.getId());
         String where = ExecutionContract.Execution._ID + "=?";
@@ -409,11 +419,12 @@ public class PumperService implements IPumperServce{
                 list.add(i);
             } while(c.moveToNext());
         }
+        c.close();
         return list;
     }
 
     @Override
-    public Iteration getIteration(int id) throws ParseException {
+    public Iteration getIteration(long id) throws ParseException {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] projection = {
                 IterationContract.Iteration._ID,
@@ -436,15 +447,17 @@ public class PumperService implements IPumperServce{
         );
         if(c != null){
             c.moveToFirst();
+            int foundId = c.getInt(c.getColumnIndex(IterationContract.Iteration._ID));
+            double weight = c.getDouble(c.getColumnIndex(IterationContract.Iteration.COLUMN_NAME_WEIGHT));
+            int repetition = c.getInt(c.getColumnIndex(IterationContract.Iteration.COLUMN_NAME_REPETITION));
+            Exercise exercise = getExercise(c.getInt(c.getColumnIndex(IterationContract.Iteration.COLUMN_NAME_EXERCISE)));
+            Execution execution = getExecution(c.getInt(c.getColumnIndex(IterationContract.Iteration.COLUMN_NAME_EXECUTION)));
+            Iteration i = new Iteration(weight, repetition, execution, exercise);
+            i.setId(foundId);
+            c.close();
+            return i;
         }
-        int foundId = c.getInt(c.getColumnIndex(IterationContract.Iteration._ID));
-        double weight = c.getDouble(c.getColumnIndex(IterationContract.Iteration.COLUMN_NAME_WEIGHT));
-        int repetition = c.getInt(c.getColumnIndex(IterationContract.Iteration.COLUMN_NAME_REPETITION));
-        Exercise exercise = getExercise(c.getInt(c.getColumnIndex(IterationContract.Iteration.COLUMN_NAME_EXERCISE)));
-        Execution execution = getExecution(c.getInt(c.getColumnIndex(IterationContract.Iteration.COLUMN_NAME_EXECUTION)));
-        Iteration i = new Iteration(weight, repetition, execution, exercise);
-        i.setId(foundId);
-        return i;
+        return null;
     }
 
     @Override
