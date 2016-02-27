@@ -53,10 +53,10 @@ public class Exercise {
         this.training = training;
     }
 
-    public void update(long id, Training training, Device device, double weight, int repetition){
-        this.device = device;
-        this.weight = weight;
-        this.repetition = repetition;
-        this.training = training;
+    public void update(Exercise other){
+        this.device = other.device;
+        this.weight = other.weight;
+        this.repetition = other.repetition;
+        this.training = other.training;
     }
 }
