@@ -15,7 +15,7 @@ public class PumperDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_DEVICE_ENTRIES =
             "CREATE TABLE " + DeviceContract.Device.TABLE_NAME + "("
                     + DeviceContract.Device._ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + COMMA_SEP
-                    + DeviceContract.Device.COLUMN_NAME_DEVICE_ID + TEXT_TYPE
+                    + DeviceContract.Device.COLUMN_NAME_DEVICE_NAME + TEXT_TYPE
                     + " )";
     private static final String SQL_CREATE_EXECUTION_ENTRIES =
             "CREATE TABLE " + ExecutionContract.Execution.TABLE_NAME + "("
