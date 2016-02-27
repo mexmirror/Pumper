@@ -34,9 +34,8 @@ public class Execution {
         this.id = id;
     }
 
-    public void update(long id, Training training, Calendar date) {
-        this.id = id;
-        this.training = training;
-        this.date = date;
+    public void update(Execution other) {
+        this.training = other.training;
+        this.date = other.date;
     }
 }

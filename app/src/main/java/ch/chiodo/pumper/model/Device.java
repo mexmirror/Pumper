@@ -24,8 +24,7 @@ public class Device {
         this.id = id;
     }
 
-    public void update(String deviceName, long id){
-        this.deviceName = deviceName;
-        this.id = id;
+    public void update(Device other){
+        this.deviceName = other.deviceName;
     }
 }

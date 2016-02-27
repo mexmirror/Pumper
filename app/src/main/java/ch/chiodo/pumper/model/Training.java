@@ -27,8 +27,7 @@ public class Training {
         this.name = name;
     }
 
-    public void update(long id, String name){
-        this.id = id;
-        this.name = name;
+    public void update(Training other){
+        this.name = other.name;
     }
 }

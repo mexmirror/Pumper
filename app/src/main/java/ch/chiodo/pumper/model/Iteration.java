@@ -54,12 +54,11 @@ public class Iteration {
         this.id = id;
     }
 
-    public void update(long id, double actualWeight, int repetition, Exercise exercise, Execution execution) {
-        this.id = id;
-        this.actualWeight = actualWeight;
-        this.repetition = repetition;
-        this.execution = execution;
-        this.exercise = exercise;
+    public void update(Iteration other) {
+        this.actualWeight = other.actualWeight;
+        this.repetition = other.repetition;
+        this.execution = other.execution;
+        this.exercise = other.exercise;
 
     }
 }

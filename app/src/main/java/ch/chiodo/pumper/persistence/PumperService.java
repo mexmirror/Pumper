@@ -17,7 +17,7 @@ import ch.chiodo.pumper.model.Iteration;
 import ch.chiodo.pumper.model.Training;
 import ch.chiodo.pumper.service.DateParseService;
 
-public class PumperService implements IPumperServce{
+public class PumperService implements IPumperService {
     public static final int sqlInsertError = -1;
     private SQLiteOpenHelper dbHelper;
 
@@ -92,7 +92,7 @@ public class PumperService implements IPumperServce{
         String[] whereArgs = {String.valueOf(original.getId())};
         int affectedRows = db.update(TrainingContract.Training.TABLE_NAME, values, where, whereArgs);
         if(affectedRows == 1){
-            original.update(modified.getId(), modified.getName());
+            original.update(modified);
             return original;
         }
         return null;
@@ -118,8 +118,8 @@ public class PumperService implements IPumperServce{
         Cursor c = db.rawQuery(query, null);
         if(c != null && c.moveToFirst()){
             do{
-                String deviceName = c.getString(c.getColumnIndex(DeviceContract.Device.COLUMN_NAME_DEVICE_ID));
-                int id = c.getInt(c.getColumnIndex(DeviceContract.Device._ID));
+                String deviceName = c.getString(c.getColumnIndex(DeviceContract.Device.COLUMN_NAME_DEVICE_NAME));
+                long id = c.getLong(c.getColumnIndex(DeviceContract.Device._ID));
                 Device d = new Device(deviceName);
                 d.setId(id);
                 list.add(d);
@@ -132,7 +132,10 @@ public class PumperService implements IPumperServce{
     @Override
     public Device getDevice(long id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] projection = {DeviceContract.Device.COLUMN_NAME_DEVICE_ID};
+        String[] projection = {
+                DeviceContract.Device._ID,
+                DeviceContract.Device.COLUMN_NAME_DEVICE_NAME
+        };
         String selection = DeviceContract.Device._ID + "=?";
         String[] selectionArgs = {String.valueOf(id)};
         Cursor c = db.query(DeviceContract.Device.TABLE_NAME,
@@ -143,9 +146,11 @@ public class PumperService implements IPumperServce{
                 null,
                 null,
                 null);
-        if(c!=null && c.moveToFirst()){
-            Device d = new Device(c.getString(c.getColumnIndex(DeviceContract.Device.COLUMN_NAME_DEVICE_ID)));
-            d.setId(c.getInt(c.getColumnIndex(DeviceContract.Device._ID)));
+        if(c != null && c.moveToFirst()){
+            String deviceName = c.getString(c.getColumnIndex(DeviceContract.Device.COLUMN_NAME_DEVICE_NAME));
+            Device d = new Device(deviceName);
+            long foundId = c.getLong(c.getColumnIndex(DeviceContract.Device._ID));
+            d.setId(foundId);
             c.close();
             return d;
         }
@@ -156,7 +161,7 @@ public class PumperService implements IPumperServce{
     public Device insertDevice(Device device) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DeviceContract.Device.COLUMN_NAME_DEVICE_ID, device.getDeviceName());
+        values.put(DeviceContract.Device.COLUMN_NAME_DEVICE_NAME, device.getDeviceName());
         long rowId = db.insert(DeviceContract.Device.TABLE_NAME, null, values);
         if(rowId != sqlInsertError){
             device.setId(rowId);
@@ -169,12 +174,12 @@ public class PumperService implements IPumperServce{
     public Device modifyDevice(Device modified, Device original) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DeviceContract.Device.COLUMN_NAME_DEVICE_ID, modified.getDeviceName());
+        values.put(DeviceContract.Device.COLUMN_NAME_DEVICE_NAME, modified.getDeviceName());
         String where = DeviceContract.Device._ID + "=?";
         String[] whereArgs = { String.valueOf(original.getId()) };
         int affectedRows = db.update(DeviceContract.Device.TABLE_NAME, values, where, whereArgs);
         if(affectedRows == 1){
-            original.update(modified.getDeviceName(), modified.getId());
+            original.update(modified);
             return original;
         }
         return null;
@@ -278,11 +283,7 @@ public class PumperService implements IPumperServce{
         String[] whereArgs = { String.valueOf(original.getId()) };
         int affectedRows = db.update(ExerciseContract.Exercise.TABLE_NAME, values, where, whereArgs);
         if(affectedRows == 1){
-            original.update(modified.getId(),
-                    modified.getTraining(),
-                    modified.getDevice(),
-                    modified.getWeight(),
-                    modified.getRepetition());
+            original.update(modified);
             return original;
         }
         return null;
@@ -382,7 +383,7 @@ public class PumperService implements IPumperServce{
         String[] whereArgs = { String.valueOf(original.getId()) };
         int affectedRows = db.update(ExecutionContract.Execution.TABLE_NAME, values, where, whereArgs);
         if(affectedRows == 1){
-            original.update(modified.getId(), modified.getTraining(), modified.getDate());
+            original.update(modified);
             return original;
         }
         return null;
@@ -486,11 +487,7 @@ public class PumperService implements IPumperServce{
         String[] whereArgs = { String.valueOf(original.getId()) };
         int affectedRows = db.update(IterationContract.Iteration.TABLE_NAME, values, where, whereArgs);
         if(affectedRows == 1){
-            original.update(modified.getId(),
-                    modified.getActualWeight(),
-                    modified.getRepetition(),
-                    modified.getExercise(),
-                    modified.getExecution());
+            original.update(modified);
             return original;
         }
         return null;
