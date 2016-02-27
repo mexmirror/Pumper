@@ -9,7 +9,7 @@ import ch.chiodo.pumper.model.Exercise;
 import ch.chiodo.pumper.model.Iteration;
 import ch.chiodo.pumper.model.Training;
 
-public interface IPumperServce {
+public interface IPumperService {
     List<Training> getTrainings();
     Training getTraining(long id);
     Training insertTraining(Training training);
