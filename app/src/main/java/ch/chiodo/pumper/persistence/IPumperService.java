@@ -3,11 +3,11 @@ package ch.chiodo.pumper.persistence;
 import java.text.ParseException;
 import java.util.List;
 
-import ch.chiodo.pumper.model.Device;
-import ch.chiodo.pumper.model.Execution;
-import ch.chiodo.pumper.model.Exercise;
-import ch.chiodo.pumper.model.Iteration;
-import ch.chiodo.pumper.model.Training;
+import ch.chiodo.pumper.presentation.model.Device;
+import ch.chiodo.pumper.presentation.model.Execution;
+import ch.chiodo.pumper.presentation.model.Exercise;
+import ch.chiodo.pumper.presentation.model.Iteration;
+import ch.chiodo.pumper.presentation.model.Training;
 
 public interface IPumperService {
     List<Training> getTrainings();

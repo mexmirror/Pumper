@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import ch.chiodo.pumper.model.Device;
-import ch.chiodo.pumper.model.Execution;
-import ch.chiodo.pumper.model.Exercise;
-import ch.chiodo.pumper.model.Iteration;
-import ch.chiodo.pumper.model.Training;
+import ch.chiodo.pumper.presentation.model.Device;
+import ch.chiodo.pumper.presentation.model.Execution;
+import ch.chiodo.pumper.presentation.model.Exercise;
+import ch.chiodo.pumper.presentation.model.Iteration;
+import ch.chiodo.pumper.presentation.model.Training;
 import ch.chiodo.pumper.service.DateParseService;
 
 public class PumperService implements IPumperService {
