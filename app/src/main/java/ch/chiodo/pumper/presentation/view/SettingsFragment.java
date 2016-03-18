@@ -18,15 +18,19 @@ public class SettingsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        final View view = inflater.inflate(R.layout.fragment_settings, container, false);
         viewModel = new SettingsViewModel(view.getContext().getApplicationContext());
         Button saveButton = (Button) view.findViewById(R.id.setting_add_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String trainingName = ((EditText)v.findViewById(R.id.setting_training_name)).getText().toString();
+                EditText text =  (EditText)view.findViewById(R.id.setting_training_name);
+                String trainingName = text.getText().toString();
                 try {
                     viewModel.addTraining(trainingName);
+                    Snackbar.make(v, "Added training " + trainingName + " successfully", Snackbar.LENGTH_LONG);
+                    getFragmentManager().popBackStack();
+
                 } catch (IllegalAccessException e) {
                     Snackbar.make(v, "Error while adding training", Snackbar.LENGTH_LONG);
                 }
