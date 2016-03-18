@@ -27,5 +27,8 @@ public class EditTrainingViewModel {
         }
         return trainingsList;
     }
+    public Training getTraining(){
+        return training;
+    }
 
 }

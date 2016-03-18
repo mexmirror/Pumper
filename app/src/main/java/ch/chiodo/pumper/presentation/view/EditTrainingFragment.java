@@ -23,7 +23,7 @@ public class EditTrainingFragment extends Fragment {
     private ViewGroup noData;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private final static int currentTraining = 0;
+    private final static int currentTraining = 1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_edit_training, container, false);
