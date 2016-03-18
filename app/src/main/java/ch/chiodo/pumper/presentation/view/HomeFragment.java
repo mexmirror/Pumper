@@ -1,4 +1,4 @@
-package ch.chiodo.pumper.view;
+package ch.chiodo.pumper.presentation.view;
 
 
 import android.app.Fragment;

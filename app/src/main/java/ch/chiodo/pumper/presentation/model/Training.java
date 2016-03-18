@@ -1,7 +1,4 @@
-package ch.chiodo.pumper.model;
-
-import java.util.ArrayList;
-import java.util.List;
+package ch.chiodo.pumper.presentation.model;
 
 public class Training {
     private long id;

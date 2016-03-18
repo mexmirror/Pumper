@@ -1,4 +1,4 @@
-package ch.chiodo.pumper.view.viewadapter;
+package ch.chiodo.pumper.presentation.view.viewadapter;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -10,15 +10,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.chiodo.pumper.R;
-import ch.chiodo.pumper.controller.TrainingController;
-import ch.chiodo.pumper.model.Exercise;
+import ch.chiodo.pumper.presentation.model.Exercise;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHolder>{
     private List<Exercise> exerciseList;
-    private TrainingController trainingController;
-    public ExerciseAdapter(){
-        trainingController = new TrainingController();
-        exerciseList = trainingController.getExercises();
+    public ExerciseAdapter(List<Exercise> exerciseList){
+        this.exerciseList = exerciseList;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -44,7 +41,6 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     }
     public void add(Exercise exercise){
         exerciseList.add(exercise);
-        trainingController.addExerciseToTraining(exercise);
     }
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public View parent;

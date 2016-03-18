@@ -1,4 +1,4 @@
-package ch.chiodo.pumper.view;
+package ch.chiodo.pumper.presentation.view;
 
 
 import android.os.Bundle;
@@ -16,10 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.chiodo.pumper.R;
-import ch.chiodo.pumper.controller.ExerciseController;
+import ch.chiodo.pumper.presentation.Constants;
+import ch.chiodo.pumper.presentation.viewmodel.EditExerciseViewModel;
 
 public class EditExerciseFragment extends Fragment {
-    private final ExerciseController exerciseController = new ExerciseController();
+    private EditExerciseViewModel viewModel;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_exercise, container, false);
@@ -31,14 +32,17 @@ public class EditExerciseFragment extends Fragment {
         setFieldValues(view, extras.get(0), extras.get(1), extras.get(2));
         Button saveButton = (Button)view.findViewById(R.id.edit_ex_save_button);
         saveButton.setOnClickListener(onSaveClick(view));
+        viewModel = new EditExerciseViewModel(view.getContext().getApplicationContext(), Long.parseLong(extras.get(0)));
         return view;
     }
     private List<String> getValuesFromBundle(){
         Bundle extra = getArguments();
-        final String device = extra.getString("device");
-        final String weight = extra.getString("weight");
-        final String rep = extra.getString("repetition");
+        final String trainingId = extra.getString(Constants.TRAINING_ID);
+        final String device = extra.getString(Constants.DEVICE_ID);
+        final String weight = extra.getString(Constants.WEIGHT);
+        final String rep = extra.getString(Constants.REPETITION);
         return new ArrayList<String>() {{
+            add(trainingId);
             add(device);
             add(weight);
             add(rep);
@@ -61,7 +65,7 @@ public class EditExerciseFragment extends Fragment {
                 String id = ((TextView)rootView.findViewById(R.id.edit_ex_id_value)).getText().toString();
                 String weight = ((TextView)rootView.findViewById(R.id.edit_ex_weight_value)).getText().toString();
                 String repetition = ((TextView)rootView.findViewById(R.id.edit_ex_repetition_value)).getText().toString();
-                exerciseController.newExercise(id, Double.parseDouble(weight), Integer.parseInt(repetition));
+                viewModel.addExercise(Double.parseDouble(weight), Integer.parseInt(repetition), id);
                 getFragmentManager().popBackStack();
             }
         };

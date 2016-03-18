@@ -1,4 +1,4 @@
-package ch.chiodo.pumper.model;
+package ch.chiodo.pumper.presentation.model;
 
 public class Iteration {
     private long id;

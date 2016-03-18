@@ -1,4 +1,4 @@
-package ch.chiodo.pumper.view;
+package ch.chiodo.pumper.presentation.view;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -13,11 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import ch.chiodo.pumper.R;
-import ch.chiodo.pumper.controller.ExerciseController;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private final FragmentManager fragmentManager = getFragmentManager();
-    private ExerciseController exerciseController = new ExerciseController();
+
     private DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setUpNavigationDrawer();
         setBackStackChangedListener();
         addFragment(new HomeFragment());
-        loadTrainings();
+        instanciatePersistence();
     }
     private void setUpSupportActionBar(){
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -41,10 +40,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView)findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
     }
-    private void loadTrainings(){
-        exerciseController.newExercise("A2", 22.4, 10);
-        exerciseController.newExercise("E1", 70.0, 8);
-        exerciseController.newExercise("B3", 100.0, 9);
+    private void instanciatePersistence(){
+
     }
     private void makeSimpleSnackbar(String message){
         View position = findViewById(R.id.snackbarPosition);

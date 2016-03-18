@@ -1,7 +1,6 @@
-package ch.chiodo.pumper.model;
+package ch.chiodo.pumper.presentation.model;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Execution {
