@@ -1,21 +1,28 @@
-package ch.chiodo.pumper.persistence;
+package ch.chiodo.pumper.persistence.dataaccess;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.Nullable;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import ch.chiodo.pumper.presentation.model.Device;
-import ch.chiodo.pumper.presentation.model.Execution;
-import ch.chiodo.pumper.presentation.model.Exercise;
-import ch.chiodo.pumper.presentation.model.Iteration;
-import ch.chiodo.pumper.presentation.model.Training;
-import ch.chiodo.pumper.service.DateParseService;
+import ch.chiodo.pumper.model.DeviceSetting;
+import ch.chiodo.pumper.persistence.dbcontract.DeviceContract;
+import ch.chiodo.pumper.persistence.dbcontract.ExecutionContract;
+import ch.chiodo.pumper.persistence.dbcontract.ExerciseContract;
+import ch.chiodo.pumper.persistence.dbcontract.IterationContract;
+import ch.chiodo.pumper.persistence.dbcontract.TrainingContract;
+import ch.chiodo.pumper.model.Device;
+import ch.chiodo.pumper.model.Execution;
+import ch.chiodo.pumper.model.Exercise;
+import ch.chiodo.pumper.model.Iteration;
+import ch.chiodo.pumper.model.Training;
+import ch.chiodo.pumper.infrastructure.service.DateParseService;
 
 public class PumperService implements IPumperService {
     public static final int sqlInsertError = -1;
@@ -44,6 +51,7 @@ public class PumperService implements IPumperService {
     }
 
     @Override
+    @Nullable
     public Training getTraining(long id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] projection = { TrainingContract.Training._ID, TrainingContract.Training.COLUMN_NAME_NAME };
@@ -502,6 +510,31 @@ public class PumperService implements IPumperService {
         if(affectedRow == 1){
             return iteration;
         }
+        return null;
+    }
+
+    @Override
+    public List<DeviceSetting> getDeviceSettings() {
+        return null;
+    }
+
+    @Override
+    public DeviceSetting getDeviceSetting(long id) {
+        return null;
+    }
+
+    @Override
+    public DeviceSetting insertDeviceSetting(DeviceSetting deviceSetting) {
+        return null;
+    }
+
+    @Override
+    public DeviceSetting modifiyDeviceSetting(DeviceSetting modified, DeviceSetting original) {
+        return null;
+    }
+
+    @Override
+    public DeviceSetting deleteDeviceSetting(DeviceSetting deviceSetting) {
         return null;
     }
 }

@@ -1,13 +1,14 @@
-package ch.chiodo.pumper.persistence;
+package ch.chiodo.pumper.persistence.dataaccess;
 
 import java.text.ParseException;
 import java.util.List;
 
-import ch.chiodo.pumper.presentation.model.Device;
-import ch.chiodo.pumper.presentation.model.Execution;
-import ch.chiodo.pumper.presentation.model.Exercise;
-import ch.chiodo.pumper.presentation.model.Iteration;
-import ch.chiodo.pumper.presentation.model.Training;
+import ch.chiodo.pumper.model.Device;
+import ch.chiodo.pumper.model.DeviceSetting;
+import ch.chiodo.pumper.model.Execution;
+import ch.chiodo.pumper.model.Exercise;
+import ch.chiodo.pumper.model.Iteration;
+import ch.chiodo.pumper.model.Training;
 
 public interface IPumperService {
     List<Training> getTrainings();
@@ -39,4 +40,10 @@ public interface IPumperService {
     Iteration insertIteration(Iteration iteration);
     Iteration modifyIteration(Iteration modified, Iteration original);
     Iteration deleteIteration(Iteration iteration);
+
+    List<DeviceSetting> getDeviceSettings();
+    DeviceSetting getDeviceSetting(long id);
+    DeviceSetting insertDeviceSetting(DeviceSetting deviceSetting);
+    DeviceSetting modifiyDeviceSetting(DeviceSetting modified, DeviceSetting original);
+    DeviceSetting deleteDeviceSetting(DeviceSetting deviceSetting);
 }
