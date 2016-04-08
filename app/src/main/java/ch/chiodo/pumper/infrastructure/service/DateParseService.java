@@ -1,4 +1,4 @@
-package ch.chiodo.pumper.service;
+package ch.chiodo.pumper.infrastructure.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
