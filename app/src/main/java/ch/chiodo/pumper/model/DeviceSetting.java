@@ -1,13 +1,25 @@
 package ch.chiodo.pumper.model;
 
 public class DeviceSetting implements Updateable<DeviceSetting>{
+    private long id;
     private Device device;
     private String settingName;
     private String settingValue;
 
-    public DeviceSetting(String name, String value){
+    public DeviceSetting(){}
+
+    public DeviceSetting(Device device, String name, String value){
         settingName = name;
         settingValue = value;
+        this.device = device;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getSettingName() {
