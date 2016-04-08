@@ -1,6 +1,7 @@
 package ch.chiodo.pumper.model;
 
 public class DeviceSetting implements Updateable<DeviceSetting>{
+    private Device device;
     private String settingName;
     private String settingValue;
 
@@ -25,8 +26,17 @@ public class DeviceSetting implements Updateable<DeviceSetting>{
         this.settingValue = settingValue;
     }
 
+    public Device getDevice() {
+        return device;
+    }
+
+    public void setDevice(Device device) {
+        this.device = device;
+    }
+
     @Override
     public void update(DeviceSetting modified) {
+        this.device = modified.device;
         this.settingName = modified.settingName;
         this.settingValue = modified.settingValue;
     }
