@@ -12,23 +12,28 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.text.ParseException;
 import java.util.List;
 
-import ch.chiodo.pumper.presentation.model.Device;
-import ch.chiodo.pumper.presentation.model.Execution;
-import ch.chiodo.pumper.presentation.model.Exercise;
-import ch.chiodo.pumper.presentation.model.Training;
-import ch.chiodo.pumper.service.DateParseService;
+import ch.chiodo.pumper.persistence.dataaccess.PumperDbHelper;
+import ch.chiodo.pumper.persistence.dataaccess.PumperServiceSqlite;
+import ch.chiodo.pumper.model.Device;
+import ch.chiodo.pumper.model.Execution;
+import ch.chiodo.pumper.model.Exercise;
+import ch.chiodo.pumper.model.Training;
+import ch.chiodo.pumper.infrastructure.service.DateParseService;
+import ch.chiodo.pumper.persistence.dbcontract.DeviceContract;
+import ch.chiodo.pumper.persistence.dbcontract.ExerciseContract;
+import ch.chiodo.pumper.persistence.dbcontract.TrainingContract;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PumperServiceTest extends AndroidTestCase {
     private SQLiteOpenHelper fakeDbHelper;
-    private PumperService service;
+    private PumperServiceSqlite service;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
         RenamingDelegatingContext context = new RenamingDelegatingContext(getContext(), "test_");
         fakeDbHelper = new PumperDbHelper(context);
-        service = new PumperService(fakeDbHelper);
+        service = new PumperServiceSqlite(fakeDbHelper);
     }
 
     @Test
@@ -222,6 +227,10 @@ public class PumperServiceTest extends AndroidTestCase {
         }
     }
 
+    @Test
+    public void testGetDeviceSetting(){
+
+    }
     @Override
     public void tearDown() throws Exception {
         fakeDbHelper.close();

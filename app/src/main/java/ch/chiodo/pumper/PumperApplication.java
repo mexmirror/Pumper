@@ -4,21 +4,21 @@ import android.app.Application;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import ch.chiodo.pumper.persistence.dataaccess.PumperDbHelper;
-import ch.chiodo.pumper.persistence.dataaccess.PumperService;
+import ch.chiodo.pumper.persistence.dataaccess.PumperServiceSqlite;
 
 public class PumperApplication extends Application{
     private SQLiteOpenHelper dbHelper;
-    private PumperService pumperService;
+    private PumperServiceSqlite pumperService;
 
     @Override
     public void onCreate() {
         super.onCreate();
         dbHelper = new PumperDbHelper(getApplicationContext());
-        pumperService  = new PumperService(dbHelper);
+        pumperService  = new PumperServiceSqlite(dbHelper);
 
     }
 
-    public PumperService getPumperService(){
+    public PumperServiceSqlite getPumperService(){
         return pumperService;
     }
 
