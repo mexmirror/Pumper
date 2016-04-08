@@ -2,10 +2,10 @@ package ch.chiodo.pumper.infrastructure.logging;
 
 import android.util.Log;
 
-public final class LogService implements Logger {
+public class LogService implements Logger {
     private LogService(){}
 
-    public LogService getInstance(){
+    public static LogService getInstance(){
         return new LogService();
     }
 
