@@ -60,10 +60,10 @@ public class PumperDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_DEVICESETTING_ENTRIES =
             "CREATE TABLE " + DeviceSettingContract.DeviceSetting.TABLE_NAME + "("
             + DeviceSettingContract.DeviceSetting._ID + INTEGER_TYPE + PRIMARY_KEY_AUTOINCREMENT + COMMA_SEP
-            + DeviceSettingContract.DeviceSetting.DEVICE + INTEGER_TYPE + COMMA_SEP
-            + DeviceSettingContract.DeviceSetting.NAME + TEXT_TYPE + COMMA_SEP
-            + DeviceSettingContract.DeviceSetting.VALUE + TEXT_TYPE + COMMA_SEP
-            + "FOREIGN KEY(" + DeviceSettingContract.DeviceSetting.DEVICE + ") REFERENCES" + DeviceContract.Device.TABLE_NAME
+            + DeviceSettingContract.DeviceSetting.COLUMN_NAME_DEVICE + INTEGER_TYPE + COMMA_SEP
+            + DeviceSettingContract.DeviceSetting.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP
+            + DeviceSettingContract.DeviceSetting.COLUMN_NAME_VALUE + TEXT_TYPE + COMMA_SEP
+            + "FOREIGN KEY(" + DeviceSettingContract.DeviceSetting.COLUMN_NAME_DEVICE + ") REFERENCES" + DeviceContract.Device.TABLE_NAME
             + ")";
     private static final String SQL_DELETE_EXECUTION_ENTRIES =
             "DROP TABLE IF EXISTS " + ExecutionContract.Execution.TABLE_NAME;
