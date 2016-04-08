@@ -44,6 +44,6 @@ public interface PumperService {
     List<DeviceSetting> getDeviceSettings();
     DeviceSetting getDeviceSetting(long id);
     DeviceSetting insertDeviceSetting(DeviceSetting deviceSetting);
-    DeviceSetting modifiyDeviceSetting(DeviceSetting modified, DeviceSetting original);
+    DeviceSetting modifyDeviceSetting(DeviceSetting modified, DeviceSetting original);
     DeviceSetting deleteDeviceSetting(DeviceSetting deviceSetting);
 }
