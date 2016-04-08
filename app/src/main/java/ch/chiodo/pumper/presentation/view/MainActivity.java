@@ -20,8 +20,8 @@ import java.util.List;
 
 import ch.chiodo.pumper.PumperApplication;
 import ch.chiodo.pumper.R;
-import ch.chiodo.pumper.persistence.PumperService;
-import ch.chiodo.pumper.presentation.model.Training;
+import ch.chiodo.pumper.persistence.dataaccess.PumperService;
+import ch.chiodo.pumper.model.Training;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private final FragmentManager fragmentManager = getFragmentManager();
@@ -113,8 +113,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
-            case R.id.action_settings:
-                replaceFragment(new SettingsFragment(), true);
         }
         return super.onOptionsItemSelected(item);
     }

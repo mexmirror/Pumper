@@ -3,9 +3,8 @@ package ch.chiodo.pumper;
 import android.app.Application;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import ch.chiodo.pumper.persistence.PumperDbHelper;
-import ch.chiodo.pumper.persistence.PumperService;
-import ch.chiodo.pumper.presentation.model.Training;
+import ch.chiodo.pumper.persistence.dataaccess.PumperDbHelper;
+import ch.chiodo.pumper.persistence.dataaccess.PumperService;
 
 public class PumperApplication extends Application{
     private SQLiteOpenHelper dbHelper;

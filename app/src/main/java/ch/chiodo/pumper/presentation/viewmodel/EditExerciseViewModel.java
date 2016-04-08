@@ -4,9 +4,9 @@ import android.content.Context;
 
 import java.util.List;
 
-import ch.chiodo.pumper.presentation.model.Device;
-import ch.chiodo.pumper.presentation.model.Exercise;
-import ch.chiodo.pumper.presentation.model.Training;
+import ch.chiodo.pumper.model.Device;
+import ch.chiodo.pumper.model.Exercise;
+import ch.chiodo.pumper.model.Training;
 
 public class EditExerciseViewModel extends BaseViewModel{
     private long trainingId;

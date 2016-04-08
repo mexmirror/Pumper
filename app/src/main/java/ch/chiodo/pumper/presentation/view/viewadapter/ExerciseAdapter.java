@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.chiodo.pumper.R;
-import ch.chiodo.pumper.presentation.model.Exercise;
+import ch.chiodo.pumper.model.Exercise;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHolder>{
     private List<Exercise> exerciseList;

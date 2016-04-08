@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.chiodo.pumper.PumperApplication;
-import ch.chiodo.pumper.presentation.model.Exercise;
-import ch.chiodo.pumper.presentation.model.Training;
-import ch.chiodo.pumper.persistence.IPumperService;
+import ch.chiodo.pumper.model.Exercise;
+import ch.chiodo.pumper.model.Training;
+import ch.chiodo.pumper.persistence.dataaccess.IPumperService;
 
 public class EditTrainingViewModel {
     private IPumperService service;
