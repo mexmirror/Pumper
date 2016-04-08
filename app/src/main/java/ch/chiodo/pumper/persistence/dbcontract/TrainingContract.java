@@ -1,4 +1,4 @@
-package ch.chiodo.pumper.persistence;
+package ch.chiodo.pumper.persistence.dbcontract;
 
 
 import android.provider.BaseColumns;
