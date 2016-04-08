@@ -1,12 +1,13 @@
-package ch.chiodo.pumper.presentation.model;
+package ch.chiodo.pumper.model;
 
-public class Training {
+
+public class Training implements Updateable<Training>{
     private long id;
     private String name;
 
     public Training(String name){
         this.name = name;
-    };
+    }
 
     public long getId() {
         return id;

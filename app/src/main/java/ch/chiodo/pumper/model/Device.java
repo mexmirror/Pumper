@@ -1,6 +1,6 @@
-package ch.chiodo.pumper.presentation.model;
+package ch.chiodo.pumper.model;
 
-public class Device {
+public class Device implements Updateable<Device>{
     private long id;
     private String deviceName;
 

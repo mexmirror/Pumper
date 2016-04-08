@@ -1,6 +1,6 @@
-package ch.chiodo.pumper.presentation.model;
+package ch.chiodo.pumper.model;
 
-public class Exercise {
+public class Exercise implements Updateable<Exercise>{
     private long id;
     private Training training;
     private Device device;

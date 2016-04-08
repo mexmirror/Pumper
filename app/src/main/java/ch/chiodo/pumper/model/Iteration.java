@@ -1,6 +1,6 @@
-package ch.chiodo.pumper.presentation.model;
+package ch.chiodo.pumper.model;
 
-public class Iteration {
+public class Iteration implements Updateable<Iteration>{
     private long id;
     private double actualWeight;
     private int repetition;

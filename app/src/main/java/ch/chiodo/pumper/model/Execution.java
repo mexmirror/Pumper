@@ -1,9 +1,9 @@
-package ch.chiodo.pumper.presentation.model;
+package ch.chiodo.pumper.model;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class Execution {
+public class Execution implements Updateable<Execution>{
     private long id;
     private Calendar date;
     private Training training;
