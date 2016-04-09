@@ -5,15 +5,16 @@ import ch.chiodo.pumper.business.Callback;
 import ch.chiodo.pumper.model.Training;
 import ch.chiodo.pumper.persistence.dataaccess.PumperService;
 
-public class InsertTrainingTask extends BaseAsyncTask<Training, Void, Training>{
+public class UpdateTrainingTask extends BaseAsyncTask<Training, Void, Training>{
 
-    public InsertTrainingTask(PumperService service, Callback<Training> callback) {
+    public UpdateTrainingTask(PumperService service, Callback<Training> callback) {
         super(service, callback);
     }
 
     @Override
     protected Training doInBackground(Training... params) {
-        Training t = params[0];
-        return service.insertTraining(t);
+        Training modified = params[0];
+        Training original = service.getTraining(modified.getId());
+        return service.modifyTraining(original, modified);
     }
 }
