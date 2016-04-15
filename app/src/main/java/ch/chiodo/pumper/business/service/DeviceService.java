@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ import ch.chiodo.pumper.model.Device;
 import ch.chiodo.pumper.persistence.dataaccess.PumperService;
 
 public class DeviceService extends Service implements BusinessService<Device>{
-    private IBinder binder = new DeviceBinder();
+    private final IBinder binder = new DeviceBinder();
     private PumperService service;
     @Override
     public IBinder onBind(Intent intent) {
@@ -87,7 +86,7 @@ public class DeviceService extends Service implements BusinessService<Device>{
         task.execute(device);
     }
 
-    public class DeviceBinder extends Binder{
+    private class DeviceBinder extends Binder{
         DeviceService getService() {
             return DeviceService.this;
         }
