@@ -1,4 +1,4 @@
-package ch.chiodo.pumper.presentation.viewmodel;
+package ch.chiodo.pumper.presentation.controller;
 
 import android.content.Context;
 
@@ -8,14 +8,12 @@ import java.util.List;
 import ch.chiodo.pumper.PumperApplication;
 import ch.chiodo.pumper.model.Exercise;
 import ch.chiodo.pumper.model.Training;
-import ch.chiodo.pumper.persistence.dataaccess.IPumperService;
+import ch.chiodo.pumper.persistence.dataaccess.PumperService;
 
-public class EditTrainingViewModel {
-    private IPumperService service;
+public class EditTrainingController extends BaseController {
     private Training training;
-    public EditTrainingViewModel(Context context, long trainingId){
-        PumperApplication application = (PumperApplication)context.getApplicationContext();
-        service = application.getPumperService();
+    public EditTrainingController(Context context, long trainingId){
+        super(context);
         training = service.getTraining(trainingId);
     }
     public List<Exercise> getExercises(){

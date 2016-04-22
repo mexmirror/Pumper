@@ -1,4 +1,4 @@
-package ch.chiodo.pumper.presentation.viewmodel;
+package ch.chiodo.pumper.presentation.controller;
 
 import android.content.Context;
 
@@ -8,10 +8,10 @@ import ch.chiodo.pumper.model.Device;
 import ch.chiodo.pumper.model.Exercise;
 import ch.chiodo.pumper.model.Training;
 
-public class EditExerciseViewModel extends BaseViewModel{
+public class EditExerciseController extends BaseController {
     private long trainingId;
 
-    public EditExerciseViewModel(Context context, long trainingId) {
+    public EditExerciseController(Context context, long trainingId) {
         super(context);
         this.trainingId = trainingId;
     }
