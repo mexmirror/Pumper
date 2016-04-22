@@ -3,7 +3,6 @@ package ch.chiodo.pumper.presentation.view;
 
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,12 +13,12 @@ import android.view.ViewGroup;
 import ch.chiodo.pumper.R;
 import ch.chiodo.pumper.presentation.Constants;
 import ch.chiodo.pumper.presentation.view.viewadapter.ExerciseAdapter;
-import ch.chiodo.pumper.presentation.viewmodel.EditTrainingViewModel;
+import ch.chiodo.pumper.presentation.controller.EditTrainingController;
 
 
 public class EditTrainingFragment extends Fragment {
     private static ExerciseAdapter adapter;
-    private static EditTrainingViewModel viewModel;
+    private static EditTrainingController viewModel;
     private ViewGroup noData;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -30,13 +29,13 @@ public class EditTrainingFragment extends Fragment {
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
         appCompatActivity.getSupportActionBar().setTitle("Edit Training");
         appCompatActivity.getSupportActionBar().show();
-        ((FloatingActionButton)view.findViewById(R.id.edit_fab)).setOnClickListener(addExerciseClickListener());
+        view.findViewById(R.id.edit_fab).setOnClickListener(addExerciseClickListener());
         recyclerView = (RecyclerView)view.findViewById(R.id.edit_recyclerview);
         recyclerView.setHasFixedSize(true);
         noData = (ViewGroup)view.findViewById(R.id.edit_no_data);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        viewModel = new EditTrainingViewModel(view.getContext().getApplicationContext(), currentTraining);
+        viewModel = new EditTrainingController(view.getContext().getApplicationContext(), currentTraining);
         adapter = new ExerciseAdapter(viewModel.getExercises());
         if(adapter.getItemCount() > 0) {
             noData.setVisibility(View.GONE);

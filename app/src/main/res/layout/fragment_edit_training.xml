@@ -14,10 +14,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No trainings have been added yet"
+            android:text="No excercises have been added yet"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:textSize="24dp"/>
+            android:textSize="22dp"/>
     </RelativeLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/edit_fab"
