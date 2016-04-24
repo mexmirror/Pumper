@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
+import org.joda.time.DateTime;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -321,7 +323,7 @@ public class PumperServiceSqlite implements PumperService {
                 long id = c.getLong(c.getColumnIndex(ExecutionContract.Execution._ID));
                 Training t = getTraining(c.getInt(c.getColumnIndex(ExecutionContract.Execution.COLUMN_NAME_TRAINING)));
                 String dateString = c.getString(c.getColumnIndex(ExecutionContract.Execution.COLUMN_NAME_DATE));
-                Calendar d = DateParseService.toCalendar(dateString);
+                DateTime d = new DateTime(DateParseService.toCalendar(dateString));
                 Execution e = new Execution(t, d);
                 e.setId(id);
                 list.add(e);
@@ -355,7 +357,7 @@ public class PumperServiceSqlite implements PumperService {
             long foundId = c.getLong(c.getColumnIndex(ExecutionContract.Execution._ID));
             Training t = getTraining(c.getInt(c.getColumnIndex(ExecutionContract.Execution._ID)));
             String dateString = c.getString(c.getColumnIndex(ExecutionContract.Execution.COLUMN_NAME_DATE));
-            Calendar d = DateParseService.toCalendar(dateString);
+            DateTime d = new DateTime(DateParseService.toCalendar(dateString));
             Execution e = new Execution(t, d);
             e.setId(foundId);
             c.close();
@@ -368,7 +370,7 @@ public class PumperServiceSqlite implements PumperService {
     public Execution insertExecution(Execution execution) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        String date = DateParseService.fromCalendar(execution.getDate());
+        String date = DateParseService.fromCalendar(execution.getDate().toGregorianCalendar());
         values.put(ExecutionContract.Execution.COLUMN_NAME_DATE, date);
         values.put(ExecutionContract.Execution.COLUMN_NAME_TRAINING, execution.getTraining().getId());
         long rowId = db.insert(ExecutionContract.Execution.TABLE_NAME, null, values);
@@ -383,7 +385,7 @@ public class PumperServiceSqlite implements PumperService {
     public Execution modifyExecution(Execution modified, Execution original) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        String iso8601date = DateParseService.fromCalendar(modified.getDate());
+        String iso8601date = DateParseService.fromCalendar(modified.getDate().toGregorianCalendar());
         values.put(ExecutionContract.Execution.COLUMN_NAME_DATE, iso8601date);
         values.put(ExecutionContract.Execution.COLUMN_NAME_TRAINING, modified.getTraining().getId());
         values.put(ExecutionContract.Execution._ID, modified.getId());

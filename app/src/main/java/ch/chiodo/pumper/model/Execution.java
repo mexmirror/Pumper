@@ -1,23 +1,25 @@
 package ch.chiodo.pumper.model;
 
+import org.joda.time.DateTime;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Execution implements Updateable<Execution>{
     private long id;
-    private Calendar date;
+    private DateTime date;
     private Training training;
 
-    public Execution(Training training, Calendar date){
+    public Execution(Training training, DateTime date){
         this.date = date;
         this.training = training;
     }
 
     public Execution(Training training){
-        this(training, GregorianCalendar.getInstance());
+        this(training, new DateTime());
     }
 
-    public Calendar getDate() {
+    public DateTime getDate() {
         return date;
     }
 
